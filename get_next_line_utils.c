@@ -4,11 +4,19 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	size_t			i;
-	unsigned char	*temp;
+	unsigned char	*result;
 
 	i = 0;
-	if (count == (size_t)-1 || size == (size_t)-1)
+	result = malloc(count * size);
+	if (!result)
 	{
-
+		return (NULL);
 	}
+	while (i < count * size)
+	{
+		result[i] = 0;
+		i++;
+	}
+	return (result);
 }
+
