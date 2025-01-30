@@ -2,18 +2,64 @@
 #include <stdio.h>
 #include <unistd.h>
 
-char	*get_next_line(int fd)
+/* -------------------------------------------------------------------------- */
+/* Function to read data from the file and append it to partial content.      */
+/* -------------------------------------------------------------------------- */
+static char *read_from_file(char *basin_buffer, int fd)
 {
-	int		bytes_read;
+    int		bytes_read;
 	char	*cup_buffer;
 
-	cup_buffer = ft_calloc ((3 + 1), sizeof(char));
+	cup_buffer = ft_calloc ((BUFFER_SIZE + 1), sizeof(char));
 	if(cup_buffer == NULL)
 		return (NULL);
-	bytes_read = read(fd, cup_buffer, 3);
-	if (bytes_read <= 0)
+	bytes_read = 1;
+
+	while (bytes_read > 0)
+	{
+		bytes_read = read(fd, cup_buffer, BUFFER_SIZE);
+
+		if (bytes_read == -1)
+			return (free(cup_buffer), NULL);
+
+		cup_buffer[bytes_read] = '\0';
+
+		basin_buffer = append_buffer(basin_buffer, cup_buffer);
+		
+		if (ft_strchr(basin_buffer, '\n'));
+			break;
+	}
+	free (cup_buffer);
+	return (basin_buffer);
+}
+
+/* -------------------------------------------------------------------------- */
+/* The get_next_line function to get the next line from the file descriptor.  */
+/* -------------------------------------------------------------------------- */
+char	*get_next_line(int fd)
+{
+	static char	*basin_buffer;
+	char	*line;
+
+	if (fd < 0 || read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	return (cup_buffer);
+
+	if (!basin_buffer)
+		basin_buffer = ft_calloc(1, sizeof (char));
+
+	if (!ft_strchr(basin_buffer, '\n'))
+		basin_buffer = read_from_file(basin_buffer, fd);
+
+	if (!basin_buffer)
+		return (free(basin_buffer), NULL);
+
+	// extract_line(basin_buffer) takes everything up to and including the first \n
+	line = extract_line(basin_buffer);
+
+	// obtain_remaining(basin_buffer) keeps everything after the first \n so it can be used in the next call.
+	basin_buffer = obtain_remaining(basin_buffer);
+
+	return (line);
 }
 
 int	main()
