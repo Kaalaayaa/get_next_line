@@ -49,7 +49,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_strdup(const char *s1)
 {
 	char			*dest;
 	unsigned int	i;
