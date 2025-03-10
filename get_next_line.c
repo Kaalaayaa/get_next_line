@@ -62,6 +62,60 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+char	*extract_line(char *basin_buffer)
+{
+	char *line;
+	char *nwline_pos;
+	int len;
+	int i;
+
+	i = 0;
+
+	if (!basin_buffer || !*basin_buffer)
+	{
+		return (NULL);
+	}
+	nwline_pos = ft_strchr(basin_buffer, '\n');
+
+	if (nwline_pos)
+	{
+		len = nwline_pos - basin_buffer + 1;
+	}
+	else
+	{
+		len = ft_strlen(basin_buffer);
+	};
+
+	line = ft_calloc(len + 1, sizeof(char));
+	if(!line)
+		return (NULL);
+
+	while(i < len)
+	{
+		line[i] = basin_buffer[i];
+		i++;
+	}
+
+	line[len] = '\0';
+	return line;
+};
+
+char	*obtain_remaining(char *basin_buffer){
+
+	char *remaining_pos;
+
+	if (!basin_buffer || !*basin_buffer)
+	{
+		return (NULL);
+	}
+
+	remaining_pos = ft_strchr
+
+
+}
+
+
+
 int	main()
 {
 	int		fd;
@@ -85,8 +139,6 @@ int	main()
 		free(next_line);
 		next_line = NULL; // ??
 	}
-	
-
 	close(fd);
 	return 0;
 }

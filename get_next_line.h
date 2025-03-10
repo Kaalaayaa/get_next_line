@@ -12,8 +12,10 @@
 
 
 char	*get_next_line(int fd);
-
+size_t	ft_strlen(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *str);
+char	*ft_strjoin(const char *s1, const char *s2);
 
 #endif
