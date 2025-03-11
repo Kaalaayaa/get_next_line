@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/11 12:53:18 by kchatela          #+#    #+#             */
+/*   Updated: 2025/03/11 12:54:58 by kchatela         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
@@ -9,7 +21,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
-
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
